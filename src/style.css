@@ -1,0 +1,228 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Freyja's Sanctuary — sistema de diseño en Tailwind CSS v4
+   Los tokens de @theme generan utilidades: bg-verde-900,
+   text-ambar-400, font-display, shadow-suave, ease-suave...
+   ============================================================ */
+
+@theme {
+  /* Verdes (identidad, bosque nórdico) */
+  --color-verde-950: #0a130d;
+  --color-verde-900: #0f1d14;
+  --color-verde-800: #17301f;
+  --color-verde-700: #22452d;
+  --color-verde-600: #2f6040;
+  --color-verde-500: #418a57;
+  --color-verde-300: #8fc7a2;
+
+  /* Ámbar (llama, cera, calidez) */
+  --color-ambar-600: #c4863b;
+  --color-ambar-500: #e3a857;
+  --color-ambar-400: #f2c078;
+  --color-ambar-200: #f8dfb6;
+
+  /* Neutros cálidos */
+  --color-crema-50: #fcf9f4;
+  --color-crema-100: #f5efe4;
+  --color-crema-200: #e9dfcd;
+  --color-tinta: #17201a;
+  --color-tinta-70: #4c574f;
+  --color-tinta-50: #7a857d;
+  --color-borde: rgb(23 32 26 / 0.1);
+
+  /* Tipografía */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* Escala fluida */
+  --text-paso--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --text-paso-0: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+  --text-paso-1: clamp(1.2rem, 1.12rem + 0.4vw, 1.45rem);
+  --text-paso-2: clamp(1.5rem, 1.35rem + 0.75vw, 2rem);
+  --text-paso-3: clamp(1.9rem, 1.6rem + 1.4vw, 2.9rem);
+  --text-paso-4: clamp(2.4rem, 1.8rem + 2.8vw, 4.4rem);
+
+  /* Forma */
+  --radius-s: 8px;
+  --radius-m: 14px;
+  --radius-l: 24px;
+  --radius-xl: 32px;
+
+  /* Sombras */
+  --shadow-suave: 0 1px 2px rgb(15 29 20 / 0.06), 0 2px 8px rgb(15 29 20 / 0.05);
+  --shadow-media: 0 4px 12px rgb(15 29 20 / 0.08), 0 12px 32px rgb(15 29 20 / 0.07);
+  --shadow-alta: 0 12px 28px rgb(15 29 20 / 0.12), 0 32px 64px rgb(15 29 20 / 0.1);
+  --shadow-ambar: 0 8px 24px rgb(196 134 59 / 0.28);
+  --shadow-ambar-fuerte: 0 12px 30px rgb(196 134 59 / 0.38);
+
+  /* Movimiento */
+  --ease-suave: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-latir: latir 9s ease-in-out infinite;
+  --animate-flotar: flotar 7s ease-in-out infinite;
+  --animate-aparecer: aparecer 300ms var(--ease-suave);
+  --animate-subir: subir 420ms var(--ease-suave);
+
+  @keyframes latir {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.14); opacity: 1; }
+  }
+  @keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes aparecer {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes subir {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+/* -------------------- BASE -------------------- */
+@layer base {
+  :root {
+    --alto-cabecera: 76px;
+    --gutter: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  @media (max-width: 760px) {
+    :root { --alto-cabecera: 66px; }
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--alto-cabecera) + 1rem);
+  }
+
+  body {
+    @apply flex min-h-screen flex-col font-sans text-paso-0 leading-[1.65] text-tinta antialiased;
+    background-color: var(--color-crema-50);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgb(65 138 87 / 0.07), transparent 45%),
+      radial-gradient(circle at 88% 22%, rgb(227 168 87 / 0.1), transparent 42%),
+      radial-gradient(circle at 50% 100%, rgb(47 96 64 / 0.06), transparent 55%);
+    background-attachment: fixed;
+  }
+
+  #app {
+    @apply flex min-h-screen flex-col;
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply font-display font-semibold leading-[1.12] tracking-[-0.02em] text-balance;
+  }
+
+  h1 { @apply text-paso-4; }
+  h2 { @apply text-paso-3; }
+  h3 { @apply text-paso-2; }
+  h4 { @apply text-paso-1; }
+  p { text-wrap: pretty; }
+
+  :focus-visible {
+    outline: 3px solid var(--color-ambar-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-ambar-200);
+    color: var(--color-verde-900);
+  }
+
+  button { cursor: pointer; }
+}
+
+/* -------------------- COMPONENTES -------------------- */
+@layer components {
+  .envoltorio {
+    @apply mx-auto w-full max-w-[1200px];
+    padding-inline: var(--gutter);
+  }
+
+  .antetitulo {
+    @apply inline-flex items-center gap-2.5 font-sans text-xs font-semibold tracking-[0.18em] text-ambar-600 uppercase;
+    &::before {
+      content: "";
+      @apply h-px w-7 bg-current;
+    }
+  }
+
+  .entradilla {
+    @apply max-w-[58ch] text-paso-1 leading-[1.55] text-tinta-70;
+  }
+
+  /* Botones */
+  .boton {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-transparent px-7 py-3.5 text-[0.95rem] font-semibold tracking-[0.01em];
+    @apply transition-all duration-200 ease-suave hover:-translate-y-0.5 active:translate-y-0;
+    & svg { @apply size-[18px]; }
+  }
+  .boton--primario {
+    @apply bg-linear-135 from-ambar-500 to-ambar-600 text-[#2a1a05] shadow-ambar hover:shadow-ambar-fuerte;
+  }
+  .boton--fantasma {
+    @apply border-crema-50/35 text-crema-50 hover:border-crema-50/60 hover:bg-crema-50/12;
+  }
+  .boton--oscuro {
+    @apply bg-verde-800 text-crema-50 shadow-media hover:bg-verde-700;
+  }
+  .boton--claro {
+    @apply border-borde bg-white text-verde-800 shadow-suave hover:shadow-media;
+  }
+  .boton--pequeno {
+    @apply px-5 py-2 text-[0.86rem];
+  }
+
+  /* Superficies */
+  .panel {
+    @apply rounded-l border border-borde bg-white shadow-media;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+  }
+
+  .tarjeta-icono {
+    @apply grid size-[52px] place-items-center rounded-2xl text-verde-600;
+    background: linear-gradient(135deg, rgb(227 168 87 / 0.18), rgb(65 138 87 / 0.16));
+  }
+
+  /* Campos de formulario */
+  .campo-input {
+    @apply w-full rounded-s border border-borde bg-crema-50 px-4 py-3 placeholder:text-tinta-50;
+    @apply transition duration-200 focus:border-verde-500 focus:bg-white focus:ring-4 focus:ring-verde-500/16 focus:outline-none;
+  }
+  .campo-input--oscuro {
+    @apply w-full rounded-s border border-crema-50/20 bg-crema-50/8 px-4 py-3 text-crema-50;
+    @apply transition duration-200 focus:border-ambar-500 focus:bg-crema-50/14 focus:ring-4 focus:ring-ambar-500/20 focus:outline-none;
+    & option { @apply text-tinta; }
+  }
+
+  /* Animación de entrada (la activa la directiva v-revelar) */
+  .revelar {
+    @apply translate-y-[26px] opacity-0 transition-[opacity,translate] duration-700 ease-suave will-change-[opacity,transform];
+  }
+  .revelar.visible {
+    @apply translate-y-0 opacity-100;
+  }
+}
+
+/* -------------------- LEAFLET -------------------- */
+.leaflet-routing-container {
+  max-height: 320px;
+  overflow-y: auto;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  border-radius: var(--radius-m);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .revelar { opacity: 1; translate: none; }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "freyja-framework",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Freyja's Sanctuary — velas artesanales. Vue 3 + TypeScript + Tailwind CSS + Node.js (Express).",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n server,client -c yellow,green \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:client": "vite",
+    "dev:server": "tsx watch server/index.ts",
+    "build": "vue-tsc -b && vite build",
+    "typecheck": "vue-tsc -b",
+    "start": "cross-env NODE_ENV=production tsx server/index.ts"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "leaflet": "^1.9.4",
+    "leaflet-routing-machine": "^3.2.12",
+    "vue": "^3.5.42",
+    "vue-router": "^4.6.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.14",
+    "@types/express": "^5.0.3",
+    "@types/leaflet": "^1.9.20",
+    "@types/leaflet-routing-machine": "^3.2.8",
+    "@types/node": "^24.13.3",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/tsconfig": "^0.9.1",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.20.6",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0",
+    "vue-tsc": "^3.3.11"
+  }
+}
