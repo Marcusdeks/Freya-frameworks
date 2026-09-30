@@ -1,7 +1,7 @@
 # Freya-frameworks
 
 Web full stack de **Freyja's Sanctuary**, una tienda de velas artesanales y personalizadas de Sant Cugat del Vallès. Construida con **Vue 3, TypeScript, Tailwind CSS y Node.js (Express)**.
-
+LINK: https://freya-frameworks.onrender.com/
 | Tecnología | Uso en el proyecto |
 |---|---|
 | **Vue 3** (Composition API, `<script setup>`) | SPA con componentes reutilizables y **Vue Router** |
